@@ -7,7 +7,7 @@ public class HangmanTest {
 
     @Test
     public void testGetAWordForGuessing() {
-        String returnedString = hangman.getWordForGuessing();
+        String returnedString = Hangman.getWordForGuessing();
         boolean returnedStringIsAWord = returnedString.matches("[A-Za-z]+");
 
         if (!returnedStringIsAWord) {
@@ -20,9 +20,9 @@ public class HangmanTest {
 
     @Test
     public void testGetADifferentWordEachTime() {
-        String returnedWord = hangman.getWordForGuessing();
+        String returnedWord = Hangman.getWordForGuessing();
         if (wordToBeGuessed.equals(returnedWord)) {
-            String newReturnedWord = hangman.getWordForGuessing();
+            String newReturnedWord = Hangman.getWordForGuessing();
             if (returnedWord.equals(newReturnedWord)) {
                 Assertions.fail("The game gets the same word every time");
             }
