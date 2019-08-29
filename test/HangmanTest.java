@@ -3,11 +3,11 @@ import org.junit.jupiter.api.Test;
 
 public class HangmanTest {
     Hangman hangman = new Hangman();
-    String wordToBeGuessed;
+    String wordToBeGuessed = "";
 
     @Test
     public void testGetAWordForGuessing() {
-        String returnedString = "asd";
+        String returnedString = hangman.getWordForGuessing();
         boolean returnedStringIsAWord = returnedString.matches("[A-Za-z]+");
 
         if (returnedStringIsAWord == false) {
@@ -16,5 +16,17 @@ public class HangmanTest {
             wordToBeGuessed = returnedString;
         }
 
+    }
+
+    @Test
+    public void testGetADifferentWordEachTime() {
+        String returnedWord = hangman.getWordForGuessing();
+        if(wordToBeGuessed.equals(returnedWord)) {
+            String oldReturnedWord = returnedWord;
+            String newReturnedWord = hangman.getWordForGuessing();
+            if(oldReturnedWord.equals(newReturnedWord)) {
+                Assertions.fail("The game gets the same word every time");
+            }
+        }
     }
 }
