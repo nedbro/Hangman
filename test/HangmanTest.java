@@ -43,14 +43,14 @@ public class HangmanTest {
             Assertions.fail(e.getMessage());
         }
 
-        String readFirstWord = Hangman.getWordFromLocation(scanner,0);
-        String readLastWord = Hangman.getWordFromLocation(scanner,9998);
+        String readFirstWord = Hangman.getWordFromLocation(scanner, 0);
+        String readLastWord = Hangman.getWordFromLocation(scanner, 9998);
 
-        if(!expectedFirstWord.equals(readFirstWord)){
+        if (!expectedFirstWord.equals(readFirstWord)) {
             Assertions.fail("The expected and read first words don't match");
         }
 
-        if(!expectedLastWord.equals(readLastWord)){
+        if (!expectedLastWord.equals(readLastWord)) {
             Assertions.fail("The expected and read first words don't match");
         }
     }
