@@ -57,18 +57,18 @@ public class HangmanTest {
 
 
     @Test
-    public void testEveryNewHangmanHasAWord(){
+    public void testEveryNewHangmanHasAWord() {
         Hangman firstTestHangman = new Hangman();
         Hangman secondTestHangman = new Hangman();
         Hangman thirdTestHangman = new Hangman();
 
-        if(firstTestHangman.getSecretWord().equals("")){
+        if (firstTestHangman.getSecretWord().equals("")) {
             Assertions.fail("The first hangman has no word to be guessed");
         }
-        if(secondTestHangman.getSecretWord().equals("")){
+        if (secondTestHangman.getSecretWord().equals("")) {
             Assertions.fail("The second hangman has no word to be guessed");
         }
-        if(thirdTestHangman.getSecretWord().equals("")){
+        if (thirdTestHangman.getSecretWord().equals("")) {
             Assertions.fail("The third hangman has no word to be guessed");
         }
     }
