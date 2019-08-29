@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class HangmanTest {
     Hangman hangman = new Hangman();
-    String wordToBeGuessed = "";
+    String wordToBeGuessed = hangman.getSecretWord();
 
     @Test
     public void testGetAWordForGuessing() {
@@ -52,6 +52,24 @@ public class HangmanTest {
 
         if (!expectedLastWord.equals(readLastWord)) {
             Assertions.fail("The expected and read first words don't match");
+        }
+    }
+
+
+    @Test
+    public void testEveryNewHangmanHasAWord(){
+        Hangman firstTestHangman = new Hangman();
+        Hangman secondTestHangman = new Hangman();
+        Hangman thirdTestHangman = new Hangman();
+
+        if(firstTestHangman.getSecretWord().equals("")){
+            Assertions.fail("The first hangman has no word to be guessed");
+        }
+        if(secondTestHangman.getSecretWord().equals("")){
+            Assertions.fail("The second hangman has no word to be guessed");
+        }
+        if(thirdTestHangman.getSecretWord().equals("")){
+            Assertions.fail("The third hangman has no word to be guessed");
         }
     }
 }
