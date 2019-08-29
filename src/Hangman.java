@@ -4,7 +4,23 @@ import java.util.Scanner;
 
 public class Hangman {
     static String englishWordsURLString = "https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english.txt";
+    String secretWord = "";
 
+    public Hangman(){
+        secretWord = getWordForGuessing();
+
+    }
+
+    public boolean gettingAWordWasSuccesful(){
+        if(secretWord.equals("0")){
+            return false;
+        }
+        else return true;
+    }
+
+    public String getSecretWord(){
+        return this.secretWord;
+    }
     public static void main(String[] args) {
 
     }
