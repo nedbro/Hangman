@@ -37,7 +37,7 @@ public class Hangman {
     public String getARandomWordWithScanner(Scanner scanner) {
         int randomNumbersLocation = getARandomNumber(10000);
         String randomWord = "";
-        for (int i = 0; i < randomNumbersLocation + 1; i++) {
+        for (int i = 0; i <= randomNumbersLocation; i++) {
             if (i == randomNumbersLocation) {
                 randomWord = scanner.nextLine();
             } else {
@@ -49,7 +49,6 @@ public class Hangman {
 
     public int getARandomNumber(int maxNumber) {
         Random rand = new Random();
-        int randomNumber = rand.nextInt(maxNumber);
-        return randomNumber;
+        return rand.nextInt(maxNumber);
     }
 }
