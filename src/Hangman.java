@@ -1,5 +1,3 @@
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Random;
 import java.util.Scanner;
@@ -14,32 +12,28 @@ public class Hangman {
     public static String getWordForGuessing() {
         Scanner scanner = new Scanner(System.in);
         try {
-            scanner = createAnURLScanner(scanner);
+            scanner = createAnURLScanner();
         } catch (Exception e) {
             return "0";
         }
 
-
-        return getARandomWordWithScanner(scanner);
+        int randomLocation = getARandomNumber(9999);
+        return getWordFromLocation(scanner, randomLocation);
     }
 
-    public static Scanner createAnURLScanner(Scanner scanner) throws Exception {
+    public static Scanner createAnURLScanner() throws Exception {
         URL englishWordsURL = new URL(englishWordsURLString);
-        try {
-            return scanner = new Scanner(englishWordsURL.openStream());
-        } catch (Exception e) {
-            throw e;
-        }
+        return new Scanner(englishWordsURL.openStream());
     }
 
-    public static String getARandomWordWithScanner(Scanner scanner) {
-        int randomNumbersLocation = getARandomNumber(10000);
+    public static String getWordFromLocation(Scanner scanner, int randomNumbersLocation) {
         String randomWord = "";
+        String throwAwayInput = "";
         for (int i = 0; i <= randomNumbersLocation; i++) {
             if (i == randomNumbersLocation) {
                 randomWord = scanner.nextLine();
             } else {
-                scanner.nextLine();
+                throwAwayInput = scanner.nextLine();
             }
         }
         return randomWord;
