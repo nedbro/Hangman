@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 
 public class HangmanTest {
     Hangman hangman = new Hangman();
+    String wordToBeGuessed;
 
     @Test
     public void testGetAWordForGuessing() {
@@ -11,6 +12,8 @@ public class HangmanTest {
 
         if (returnedStringIsAWord == false) {
             Assertions.fail("The game couldn't get a word for the game.");
+        } else {
+            wordToBeGuessed = returnedString;
         }
 
     }
