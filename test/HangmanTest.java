@@ -14,8 +14,6 @@ public class HangmanTest {
 
         if (!returnedStringIsAWord) {
             Assertions.fail("The game couldn't get a word for the game.");
-        } else {
-            wordToBeGuessed = returnedString;
         }
 
     }
@@ -70,6 +68,16 @@ public class HangmanTest {
         }
         if (thirdTestHangman.getSecretWord().equals("")) {
             Assertions.fail("The third hangman has no word to be guessed");
+        }
+    }
+
+    @Test
+    public void testGuessingALetter() {
+        hangman.secretWord = "and";
+        String testLetter = "a";
+        boolean secretWordContainsTheLetter = hangman.checkWordForALetter(testLetter);
+        if (!secretWordContainsTheLetter) {
+            Assertions.fail("The method couldn't find a letter that was obviously there");
         }
     }
 }
