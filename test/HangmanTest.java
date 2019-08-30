@@ -72,12 +72,22 @@ public class HangmanTest {
     }
 
     @Test
-    public void testGuessingALetter() {
-        hangman.secretWord = "and";
+    public void testGuessingWithALetter() {
+        Hangman testHangman = new Hangman();
+        testHangman.secretWord = "and";
         String testLetter = "a";
-        boolean secretWordContainsTheLetter = hangman.checkWordForALetter(testLetter);
+        boolean secretWordContainsTheLetter = testHangman.checkWordForALetter(testLetter);
         if (!secretWordContainsTheLetter) {
             Assertions.fail("The method couldn't find a letter that was obviously there");
         }
     }
+
+    @Test
+    public void testGuessingWithMoreThanOneLetter() {
+        Hangman testHangman = new Hangman();
+        testHangman.secretWord = "and";
+        Assertions.assertFalse(testHangman.checkWordForALetter("an"));
+    }
+
 }
+

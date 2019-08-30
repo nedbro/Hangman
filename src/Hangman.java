@@ -21,6 +21,19 @@ public class Hangman {
         return this.secretWord;
     }
 
+    public boolean checkWordForALetter(String letter) {
+        if (letter.length() == 1) {
+            if (secretWord.contains(letter)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
+    }
+
     public static void main(String[] args) {
 
     }
