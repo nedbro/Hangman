@@ -1,16 +1,20 @@
 import java.net.URL;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Hangman {
     static String englishWordsURLString = "https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english.txt";
     String secretWord = "";
-    Set<String> guessedLetters = new HashSet<String>();
+    String[] secretWordInArrayForm;
+    String[] wordCompletionArray;
+    ArrayList<String> guessedLetters = new ArrayList<>();
+
     public Hangman() {
         secretWord = getWordForGuessing();
-
+        secretWordInArrayForm = secretWord.split("");
+        wordCompletionArray = new String[secretWordInArrayForm.length];
+        refreshWordCompletionArray();
     }
 
     public boolean gettingAWordWasSuccesful() {
@@ -24,19 +28,40 @@ public class Hangman {
     }
 
     public boolean checkWordForALetter(String letter) {
+        letter = letter.toLowerCase();
+        boolean result = false;
         if (letter.length() == 1) {
-            if (secretWord.contains(letter) && guessedLetters.add(letter)) {
-                return true;
-            } else {
-                return false;
+            if (secretWord.contains(letter) && !guessedLetters.contains(letter)) {
+                guessedLetters.add(letter);
+                result = true;
+            } else if (!guessedLetters.contains(letter)) {
+                guessedLetters.add(letter);
             }
-        } else {
-            return false;
         }
+        refreshWordCompletionArray();
+        return result;
     }
 
-    public Set getGuessedLetters() {
+    public ArrayList<String> getGuessedLetters() {
         return guessedLetters;
+    }
+
+    public String getCurrentStateOfTheGame() {
+        String result = "";
+        for (int i = 0; i < secretWord.length(); i++) {
+            result += wordCompletionArray[i] + " ";
+        }
+        return result;
+    }
+
+    public void refreshWordCompletionArray() {
+        for (int i = 0; i < secretWordInArrayForm.length; i++) {
+            if (guessedLetters.contains(secretWordInArrayForm[i])) {
+                wordCompletionArray[i] = secretWordInArrayForm[i];
+            } else {
+                wordCompletionArray[i] = "_";
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -52,7 +77,7 @@ public class Hangman {
         }
 
         int randomLocation = getARandomNumber(9999);
-        return getWordFromLocation(scanner, randomLocation);
+        return getWordFromLocation(scanner, randomLocation).toLowerCase();
     }
 
     public static Scanner createAnURLScanner() throws Exception {

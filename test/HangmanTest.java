@@ -114,6 +114,8 @@ public class HangmanTest {
     public void testGettingTheCurrentGuessedLettersInWordRepetitiveLetters() {
         hangman.secretWord = "aabbccdd";
         hangman.secretWordInArrayForm = hangman.secretWord.split("");
+        hangman.wordCompletionArray = new String[hangman.secretWordInArrayForm.length];
+        hangman.refreshWordCompletionArray();
         hangman.checkWordForALetter("a");
         hangman.checkWordForALetter("d");
         Assertions.assertEquals("a a _ _ _ _ d d ", hangman.getCurrentStateOfTheGame());
@@ -134,5 +136,6 @@ public class HangmanTest {
         hangman.secretWordInArrayForm = hangman.secretWord.split("");
         Assertions.assertEquals("_ _ _ _ ", hangman.getCurrentStateOfTheGame());
     }
+
 }
 
