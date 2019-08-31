@@ -137,5 +137,66 @@ public class HangmanTest {
         Assertions.assertEquals("_ _ _ _ ", hangman.getCurrentStateOfTheGame());
     }
 
+    @Test
+    public void testNoMoreLettersToGuess() {
+        hangman.secretWord = "abcd";
+        hangman.secretWordInArrayForm = hangman.secretWord.split("");
+        hangman.checkWordForALetter("a");
+        hangman.checkWordForALetter("b");
+        hangman.checkWordForALetter("c");
+        hangman.checkWordForALetter("d");
+        Assertions.assertFalse(hangman.areThereAnyLettersToGuess());
+    }
+
+    @Test
+    public void testOneMoreLettersToGuess() {
+        hangman.secretWord = "abcd";
+        hangman.secretWordInArrayForm = hangman.secretWord.split("");
+        hangman.checkWordForALetter("a");
+        hangman.checkWordForALetter("b");
+        hangman.checkWordForALetter("c");
+        Assertions.assertTrue(hangman.areThereAnyLettersToGuess());
+    }
+
+    @Test
+    public void testTwoMoreLettersToGuess() {
+        hangman.secretWord = "abcd";
+        hangman.secretWordInArrayForm = hangman.secretWord.split("");
+        hangman.checkWordForALetter("a");
+        hangman.checkWordForALetter("b");
+        Assertions.assertTrue(hangman.areThereAnyLettersToGuess());
+    }
+
+    @Test
+    public void testThreeMoreLettersToGuess() {
+        hangman.secretWord = "abcd";
+        hangman.secretWordInArrayForm = hangman.secretWord.split("");
+        hangman.checkWordForALetter("a");
+        Assertions.assertTrue(hangman.areThereAnyLettersToGuess());
+    }
+
+    @Test
+    public void testNoLettersHaveBeenGuessed() {
+        hangman.secretWord = "abcd";
+        hangman.secretWordInArrayForm = hangman.secretWord.split("");
+        Assertions.assertTrue(hangman.areThereAnyLettersToGuess());
+    }
+
+
+    @Test
+    public void testNoCorrectLettersHaveBeenGuessed() {
+        hangman.secretWord = "abcd";
+        hangman.checkWordForALetter("s");
+        hangman.checkWordForALetter("g");
+        hangman.checkWordForALetter("r");
+        hangman.checkWordForALetter("t");
+        hangman.checkWordForALetter("k");
+        hangman.checkWordForALetter("v");
+        hangman.checkWordForALetter("y");
+        hangman.secretWordInArrayForm = hangman.secretWord.split("");
+        Assertions.assertTrue(hangman.areThereAnyLettersToGuess());
+    }
+
+
 }
 
