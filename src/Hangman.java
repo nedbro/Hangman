@@ -40,14 +40,13 @@ public class Hangman {
         return guessedLetters;
     }
 
-    public String printTheIncorrectlyGuessedLetters(){
+    public String returnTheIncorrectlyGuessedLettersInAString(){
         ArrayList<String> allGuessedLetters = getGuessedLetters();
         String result = "";
         for (String letter : allGuessedLetters) {
             if(!secretWord.contains(letter))
             result += letter + " ";
         }
-        System.out.println(result);
         return result;
     }
 

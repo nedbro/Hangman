@@ -204,7 +204,7 @@ public class HangmanTest {
     }
 
     @Test
-    public void testPrintingTheIncorrectlyGuessedLetters(){
+    public void testGettingTheIncorrectlyGuessedLetters(){
         hangman.secretWord = "abcd";
         hangman.checkWordForALetter("s");
         hangman.checkWordForALetter("g");
@@ -213,7 +213,7 @@ public class HangmanTest {
         hangman.checkWordForALetter("k");
         hangman.checkWordForALetter("v");
         hangman.checkWordForALetter("y");
-        Assertions.assertEquals("s g r t k v y ",hangman.printTheIncorrectlyGuessedLetters());
+        Assertions.assertEquals("s g r t k v y ",hangman.returnTheIncorrectlyGuessedLettersInAString());
 
     }
 
