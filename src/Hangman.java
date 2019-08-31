@@ -24,7 +24,7 @@ public class Hangman {
     public boolean checkWordForALetter(String letter) {
         letter = letter.toLowerCase();
         boolean result = false;
-        if (letter.length() == 1) {
+        if (letter.length() == 1 && letter.matches("[A-Za-z]")) {
             if (secretWord.contains(letter) && !guessedLetters.contains(letter)) {
                 guessedLetters.add(letter);
                 result = true;
@@ -40,17 +40,17 @@ public class Hangman {
         return guessedLetters;
     }
 
-    public String returnTheIncorrectlyGuessedLettersInAString(){
+    public String returnTheIncorrectlyGuessedLettersInAString() {
         ArrayList<String> allGuessedLetters = getGuessedLetters();
         String result = "";
         for (String letter : allGuessedLetters) {
-            if(!secretWord.contains(letter))
-            result += letter + " ";
+            if (!secretWord.contains(letter))
+                result += letter + " ";
         }
         return result;
     }
 
-    public String getCurrentStateOfTheGame() {
+    public String getCurrentStateOfTheGuessedWord() {
         String result = "";
         for (int i = 0; i < secretWord.length(); i++) {
             result += wordCompletionArray[i] + " ";
@@ -77,18 +77,40 @@ public class Hangman {
         return false;
     }
 
-    public boolean gettingAWordWasSuccesful() {
+    public boolean gettingAWordWasSuccessful() {
         if (secretWord.equals("0")) {
             return false;
         } else return true;
     }
 
 
-    public void doARoundOfGuessing(){
+    public void doARoundOfGuessing() {
+        printTheCurrentStateOfTheGame();
+        Scanner scanner = new Scanner(System.in);
+        String inputLetter = scanner.nextLine();
+        checkWordForALetter(inputLetter);
+    }
 
+    public void printTheCurrentStateOfTheGame() {
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println(getCurrentStateOfTheGuessedWord());
+        System.out.println();
+        System.out.println(returnTheIncorrectlyGuessedLettersInAString());
+        System.out.println();
     }
 
     public static void main(String[] args) {
+        Hangman hangman = new Hangman();
+        while(hangman.areThereAnyLettersToGuess()) {
+            hangman.doARoundOfGuessing();
+        }
+
+        hangman.printTheCurrentStateOfTheGame();
 
     }
 

@@ -241,5 +241,10 @@ public class HangmanTest {
         Assertions.assertFalse(hangman.areThereAnyLettersToGuess());
     }
 
+    @Test
+    public void testNonCharacterInput(){
+        Assertions.assertFalse(hangman.checkWordForALetter("."));
+    }
+
 }
 
