@@ -103,12 +103,36 @@ public class HangmanTest {
         hangman.checkWordForALetter("A");
         Assertions.assertTrue(hangman.getGuessedLetters().contains("a"));
         Assertions.assertFalse(hangman.getGuessedLetters().contains("A"));
-        
+
         hangman.checkWordForALetter("N");
         Assertions.assertFalse(hangman.getGuessedLetters().contains("N"));
         Assertions.assertTrue(hangman.getGuessedLetters().contains("n"));
 
     }
 
+    @Test
+    public void testGettingTheCurrentGuessedLettersInWordRepetitiveLetters() {
+        hangman.secretWord = "aabbccdd";
+        hangman.secretWordInArrayForm = hangman.secretWord.split("");
+        hangman.checkWordForALetter("a");
+        hangman.checkWordForALetter("d");
+        Assertions.assertEquals("a a _ _ _ _ d d ", hangman.getCurrentStateOfTheGame());
+    }
+
+    @Test
+    public void testGettingTheCurrentGuessedLettersInWordNormalLetters() {
+        hangman.secretWord = "abcd";
+        hangman.secretWordInArrayForm = hangman.secretWord.split("");
+        hangman.checkWordForALetter("a");
+        hangman.checkWordForALetter("c");
+        Assertions.assertEquals("a _ c _ ", hangman.getCurrentStateOfTheGame());
+    }
+
+    @Test
+    public void testGettingTheCurrentGuessedLettersInWordZeroLetters() {
+        hangman.secretWord = "abcd";
+        hangman.secretWordInArrayForm = hangman.secretWord.split("");
+        Assertions.assertEquals("_ _ _ _ ", hangman.getCurrentStateOfTheGame());
+    }
 }
 
