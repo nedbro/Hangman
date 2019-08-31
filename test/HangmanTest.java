@@ -73,10 +73,9 @@ public class HangmanTest {
 
     @Test
     public void testGuessingWithALetter() {
-        Hangman testHangman = new Hangman();
-        testHangman.secretWord = "and";
+        hangman.secretWord = "and";
         String testLetter = "a";
-        boolean secretWordContainsTheLetter = testHangman.checkWordForALetter(testLetter);
+        boolean secretWordContainsTheLetter = hangman.checkWordForALetter(testLetter);
         if (!secretWordContainsTheLetter) {
             Assertions.fail("The method couldn't find a letter that was obviously there");
         }
@@ -84,19 +83,31 @@ public class HangmanTest {
 
     @Test
     public void testGuessingWithMoreThanOneLetter() {
-        Hangman testHangman = new Hangman();
-        testHangman.secretWord = "and";
-        Assertions.assertFalse(testHangman.checkWordForALetter("an"));
+        hangman.secretWord = "and";
+        Assertions.assertFalse(hangman.checkWordForALetter("an"));
     }
 
     @Test
     public void testCheckIfGuessedLettersAreSaved() {
-        Hangman testHangman = new Hangman();
-        testHangman.secretWord = "and";
-        testHangman.checkWordForALetter("a");
-        if (!testHangman.getGuessedLetters().contains("a")) {
+        hangman.secretWord = "and";
+        hangman.checkWordForALetter("a");
+        if (!hangman.getGuessedLetters().contains("a")) {
             Assertions.fail("The program is not saving the guessed letters");
         }
+    }
+
+    @Test
+    public void testLowerAndUpperCaseInput() {
+        hangman.secretWord = "and";
+        hangman.checkWordForALetter("a");
+        hangman.checkWordForALetter("A");
+        Assertions.assertTrue(hangman.getGuessedLetters().contains("a"));
+        Assertions.assertFalse(hangman.getGuessedLetters().contains("A"));
+        
+        hangman.checkWordForALetter("N");
+        Assertions.assertFalse(hangman.getGuessedLetters().contains("N"));
+        Assertions.assertTrue(hangman.getGuessedLetters().contains("n"));
+
     }
 
 }
