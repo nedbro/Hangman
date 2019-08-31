@@ -197,6 +197,25 @@ public class HangmanTest {
         Assertions.assertTrue(hangman.areThereAnyLettersToGuess());
     }
 
+    @Test
+    public void testCheckIfYouCanStartTheGame() {
+        Hangman testHangman = new Hangman();
+        Assertions.assertTrue(hangman.gettingAWordWasSuccesful());
+    }
+
+    @Test
+    public void testPrintingTheIncorrectlyGuessedLetters(){
+        hangman.secretWord = "abcd";
+        hangman.checkWordForALetter("s");
+        hangman.checkWordForALetter("g");
+        hangman.checkWordForALetter("r");
+        hangman.checkWordForALetter("t");
+        hangman.checkWordForALetter("k");
+        hangman.checkWordForALetter("v");
+        hangman.checkWordForALetter("y");
+        Assertions.assertEquals("s g r t k v y ",hangman.printTheIncorrectlyGuessedLetters());
+
+    }
 
 }
 

@@ -17,12 +17,6 @@ public class Hangman {
         refreshWordCompletionArray();
     }
 
-    public boolean gettingAWordWasSuccesful() {
-        if (secretWord.equals("0")) {
-            return false;
-        } else return true;
-    }
-
     public String getSecretWord() {
         return this.secretWord;
     }
@@ -46,6 +40,17 @@ public class Hangman {
         return guessedLetters;
     }
 
+    public String printTheIncorrectlyGuessedLetters(){
+        ArrayList<String> allGuessedLetters = getGuessedLetters();
+        String result = "";
+        for (String letter : allGuessedLetters) {
+            if(!secretWord.contains(letter))
+            result += letter + " ";
+        }
+        System.out.println(result);
+        return result;
+    }
+
     public String getCurrentStateOfTheGame() {
         String result = "";
         for (int i = 0; i < secretWord.length(); i++) {
@@ -62,6 +67,26 @@ public class Hangman {
                 wordCompletionArray[i] = "_";
             }
         }
+    }
+
+    public boolean areThereAnyLettersToGuess() {
+        for (int i = 0; i < secretWordInArrayForm.length; i++) {
+            if (wordCompletionArray[i] != secretWordInArrayForm[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean gettingAWordWasSuccesful() {
+        if (secretWord.equals("0")) {
+            return false;
+        } else return true;
+    }
+
+
+    public void doARoundOfGuessing(){
+
     }
 
     public static void main(String[] args) {
