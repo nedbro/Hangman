@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
 import java.util.Scanner;
 
 public class HangmanTest {
@@ -118,7 +119,7 @@ public class HangmanTest {
         hangman.refreshWordCompletionArray();
         hangman.checkWordForALetter("a");
         hangman.checkWordForALetter("d");
-        Assertions.assertEquals("a a _ _ _ _ d d ", hangman.getCurrentStateOfTheGame());
+        Assertions.assertEquals("a a _ _ _ _ d d ", hangman.getCurrentStateOfTheGuessedWord());
     }
 
     @Test
@@ -127,14 +128,14 @@ public class HangmanTest {
         hangman.secretWordInArrayForm = hangman.secretWord.split("");
         hangman.checkWordForALetter("a");
         hangman.checkWordForALetter("c");
-        Assertions.assertEquals("a _ c _ ", hangman.getCurrentStateOfTheGame());
+        Assertions.assertEquals("a _ c _ ", hangman.getCurrentStateOfTheGuessedWord());
     }
 
     @Test
     public void testGettingTheCurrentGuessedLettersInWordZeroLetters() {
         hangman.secretWord = "abcd";
         hangman.secretWordInArrayForm = hangman.secretWord.split("");
-        Assertions.assertEquals("_ _ _ _ ", hangman.getCurrentStateOfTheGame());
+        Assertions.assertEquals("_ _ _ _ ", hangman.getCurrentStateOfTheGuessedWord());
     }
 
     @Test
@@ -200,11 +201,11 @@ public class HangmanTest {
     @Test
     public void testCheckIfYouCanStartTheGame() {
         Hangman testHangman = new Hangman();
-        Assertions.assertTrue(hangman.gettingAWordWasSuccesful());
+        Assertions.assertTrue(testHangman.gettingAWordWasSuccessful());
     }
 
     @Test
-    public void testGettingTheIncorrectlyGuessedLetters(){
+    public void testGettingTheIncorrectlyGuessedLetters() {
         hangman.secretWord = "abcd";
         hangman.checkWordForALetter("s");
         hangman.checkWordForALetter("g");
@@ -213,8 +214,31 @@ public class HangmanTest {
         hangman.checkWordForALetter("k");
         hangman.checkWordForALetter("v");
         hangman.checkWordForALetter("y");
-        Assertions.assertEquals("s g r t k v y ",hangman.returnTheIncorrectlyGuessedLettersInAString());
+        Assertions.assertEquals("s g r t k v y ", hangman.returnTheIncorrectlyGuessedLettersInAString());
+    }
 
+    @Test
+    public void testARoundOfGuessing() {
+        hangman.secretWord = "abcd";
+        hangman.secretWordInArrayForm = hangman.secretWord.split("");
+        hangman.wordCompletionArray = new String[hangman.secretWord.length()];
+        hangman.refreshWordCompletionArray();
+        ByteArrayInputStream in = new ByteArrayInputStream("a".getBytes());
+        System.setIn(in);
+        Assertions.assertTrue(hangman.areThereAnyLettersToGuess());
+
+    }
+
+    @Test
+    public void testMultipleRoundsOfGuessing() {
+        String[] alphabet = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
+                "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+        for (int i = 0; i < alphabet.length; i++) {
+            ByteArrayInputStream in = new ByteArrayInputStream(alphabet[i].getBytes());
+            System.setIn(in);
+            hangman.doARoundOfGuessing();
+        }
+        Assertions.assertFalse(hangman.areThereAnyLettersToGuess());
     }
 
 }
