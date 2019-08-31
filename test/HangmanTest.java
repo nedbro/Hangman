@@ -89,5 +89,15 @@ public class HangmanTest {
         Assertions.assertFalse(testHangman.checkWordForALetter("an"));
     }
 
+    @Test
+    public void testCheckIfGuessedLettersAreSaved() {
+        Hangman testHangman = new Hangman();
+        testHangman.secretWord = "and";
+        testHangman.checkWordForALetter("a");
+        if (!testHangman.getGuessedLetters().contains("a")) {
+            Assertions.fail("The program is not saving the guessed letters");
+        }
+    }
+
 }
 

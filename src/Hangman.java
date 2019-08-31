@@ -1,11 +1,13 @@
 import java.net.URL;
+import java.util.HashSet;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Hangman {
     static String englishWordsURLString = "https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english.txt";
     String secretWord = "";
-
+    Set<String> guessedLetters = new HashSet<String>();
     public Hangman() {
         secretWord = getWordForGuessing();
 
@@ -23,7 +25,7 @@ public class Hangman {
 
     public boolean checkWordForALetter(String letter) {
         if (letter.length() == 1) {
-            if (secretWord.contains(letter)) {
+            if (secretWord.contains(letter) && guessedLetters.add(letter)) {
                 return true;
             } else {
                 return false;
@@ -31,7 +33,10 @@ public class Hangman {
         } else {
             return false;
         }
+    }
 
+    public Set getGuessedLetters() {
+        return guessedLetters;
     }
 
     public static void main(String[] args) {
