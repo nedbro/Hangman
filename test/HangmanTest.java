@@ -1,12 +1,18 @@
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.util.Scanner;
 
 public class HangmanTest {
-    Hangman hangman = new Hangman();
-    String wordToBeGuessed = hangman.getSecretWord();
+    private Hangman hangman;
+
+    @BeforeEach
+    public void init(){
+        hangman = new Hangman();
+        hangman.setSecretWord("abcd");
+    }
 
     @Test
     public void testGetAWordForGuessing() {
@@ -21,8 +27,9 @@ public class HangmanTest {
 
     @Test
     public void testGetADifferentWordEachTime() {
+        hangman.setSecretWord(Hangman.getWordForGuessing());
         String returnedWord = Hangman.getWordForGuessing();
-        if (wordToBeGuessed.equals(returnedWord)) {
+        if (hangman.getSecretWord().equals(returnedWord)) {
             String newReturnedWord = Hangman.getWordForGuessing();
             if (returnedWord.equals(newReturnedWord)) {
                 Assertions.fail("The game gets the same word every time");
@@ -74,7 +81,6 @@ public class HangmanTest {
 
     @Test
     public void testGuessingWithALetter() {
-        hangman.secretWord = "and";
         String testLetter = "a";
         boolean secretWordContainsTheLetter = hangman.checkWordForALetter(testLetter);
         if (!secretWordContainsTheLetter) {
@@ -84,13 +90,11 @@ public class HangmanTest {
 
     @Test
     public void testGuessingWithMoreThanOneLetter() {
-        hangman.secretWord = "and";
-        Assertions.assertFalse(hangman.checkWordForALetter("an"));
+        Assertions.assertFalse(hangman.checkWordForALetter("ab"));
     }
 
     @Test
     public void testCheckIfGuessedLettersAreSaved() {
-        hangman.secretWord = "and";
         hangman.checkWordForALetter("a");
         if (!hangman.getGuessedLetters().contains("a")) {
             Assertions.fail("The program is not saving the guessed letters");
@@ -99,24 +103,20 @@ public class HangmanTest {
 
     @Test
     public void testLowerAndUpperCaseInput() {
-        hangman.secretWord = "and";
         hangman.checkWordForALetter("a");
         hangman.checkWordForALetter("A");
         Assertions.assertTrue(hangman.getGuessedLetters().contains("a"));
         Assertions.assertFalse(hangman.getGuessedLetters().contains("A"));
 
-        hangman.checkWordForALetter("N");
-        Assertions.assertFalse(hangman.getGuessedLetters().contains("N"));
-        Assertions.assertTrue(hangman.getGuessedLetters().contains("n"));
+        hangman.checkWordForALetter("B");
+        Assertions.assertFalse(hangman.getGuessedLetters().contains("B"));
+        Assertions.assertTrue(hangman.getGuessedLetters().contains("b"));
 
     }
 
     @Test
     public void testGettingTheCurrentGuessedLettersInWordRepetitiveLetters() {
-        hangman.secretWord = "aabbccdd";
-        hangman.secretWordInArrayForm = hangman.secretWord.split("");
-        hangman.wordCompletionArray = new String[hangman.secretWordInArrayForm.length];
-        hangman.refreshWordCompletionArray();
+        hangman.setSecretWord("aabbccdd");
         hangman.checkWordForALetter("a");
         hangman.checkWordForALetter("d");
         Assertions.assertEquals("a a _ _ _ _ d d ", hangman.getCurrentStateOfTheGuessedWord());
@@ -124,8 +124,6 @@ public class HangmanTest {
 
     @Test
     public void testGettingTheCurrentGuessedLettersInWordNormalLetters() {
-        hangman.secretWord = "abcd";
-        hangman.secretWordInArrayForm = hangman.secretWord.split("");
         hangman.checkWordForALetter("a");
         hangman.checkWordForALetter("c");
         Assertions.assertEquals("a _ c _ ", hangman.getCurrentStateOfTheGuessedWord());
@@ -133,15 +131,11 @@ public class HangmanTest {
 
     @Test
     public void testGettingTheCurrentGuessedLettersInWordZeroLetters() {
-        hangman.secretWord = "abcd";
-        hangman.secretWordInArrayForm = hangman.secretWord.split("");
         Assertions.assertEquals("_ _ _ _ ", hangman.getCurrentStateOfTheGuessedWord());
     }
 
     @Test
     public void testNoMoreLettersToGuess() {
-        hangman.secretWord = "abcd";
-        hangman.secretWordInArrayForm = hangman.secretWord.split("");
         hangman.checkWordForALetter("a");
         hangman.checkWordForALetter("b");
         hangman.checkWordForALetter("c");
@@ -151,8 +145,6 @@ public class HangmanTest {
 
     @Test
     public void testOneMoreLettersToGuess() {
-        hangman.secretWord = "abcd";
-        hangman.secretWordInArrayForm = hangman.secretWord.split("");
         hangman.checkWordForALetter("a");
         hangman.checkWordForALetter("b");
         hangman.checkWordForALetter("c");
@@ -161,8 +153,6 @@ public class HangmanTest {
 
     @Test
     public void testTwoMoreLettersToGuess() {
-        hangman.secretWord = "abcd";
-        hangman.secretWordInArrayForm = hangman.secretWord.split("");
         hangman.checkWordForALetter("a");
         hangman.checkWordForALetter("b");
         Assertions.assertTrue(hangman.areThereAnyLettersToGuess());
@@ -170,23 +160,17 @@ public class HangmanTest {
 
     @Test
     public void testThreeMoreLettersToGuess() {
-        hangman.secretWord = "abcd";
-        hangman.secretWordInArrayForm = hangman.secretWord.split("");
-        hangman.checkWordForALetter("a");
         Assertions.assertTrue(hangman.areThereAnyLettersToGuess());
     }
 
     @Test
     public void testNoLettersHaveBeenGuessed() {
-        hangman.secretWord = "abcd";
-        hangman.secretWordInArrayForm = hangman.secretWord.split("");
         Assertions.assertTrue(hangman.areThereAnyLettersToGuess());
     }
 
 
     @Test
     public void testNoCorrectLettersHaveBeenGuessed() {
-        hangman.secretWord = "abcd";
         hangman.checkWordForALetter("s");
         hangman.checkWordForALetter("g");
         hangman.checkWordForALetter("r");
@@ -194,7 +178,6 @@ public class HangmanTest {
         hangman.checkWordForALetter("k");
         hangman.checkWordForALetter("v");
         hangman.checkWordForALetter("y");
-        hangman.secretWordInArrayForm = hangman.secretWord.split("");
         Assertions.assertTrue(hangman.areThereAnyLettersToGuess());
     }
 
@@ -206,7 +189,6 @@ public class HangmanTest {
 
     @Test
     public void testGettingTheIncorrectlyGuessedLetters() {
-        hangman.secretWord = "abcd";
         hangman.checkWordForALetter("s");
         hangman.checkWordForALetter("g");
         hangman.checkWordForALetter("r");
@@ -219,10 +201,6 @@ public class HangmanTest {
 
     @Test
     public void testARoundOfGuessing() {
-        hangman.secretWord = "abcd";
-        hangman.secretWordInArrayForm = hangman.secretWord.split("");
-        hangman.wordCompletionArray = new String[hangman.secretWord.length()];
-        hangman.refreshWordCompletionArray();
         ByteArrayInputStream in = new ByteArrayInputStream("a".getBytes());
         System.setIn(in);
         Assertions.assertTrue(hangman.areThereAnyLettersToGuess());

@@ -5,16 +5,23 @@ import java.util.Scanner;
 
 public class Hangman {
     static String englishWordsURLString = "https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english.txt";
-    String secretWord = "";
-    String[] secretWordInArrayForm;
-    String[] wordCompletionArray;
-    ArrayList<String> guessedLetters = new ArrayList<>();
+
+
+    private String secretWord = "";
+    private String[] secretWordInArrayForm;
+    private String[] wordCompletionArray;
+    private ArrayList<String> guessedLetters = new ArrayList<>();
 
     public Hangman() {
-        secretWord = getWordForGuessing();
-        secretWordInArrayForm = secretWord.split("");
-        wordCompletionArray = new String[secretWordInArrayForm.length];
+        this.setSecretWord(getWordForGuessing());
         refreshWordCompletionArray();
+    }
+
+    public void setSecretWord(String secretWord) {
+        this.secretWord = secretWord;
+        this.secretWordInArrayForm = this.secretWord.split("");
+        this.wordCompletionArray = new String[this.secretWord.length()];
+        this.refreshWordCompletionArray();
     }
 
     public String getSecretWord() {
@@ -115,7 +122,7 @@ public class Hangman {
     }
 
     public static String getWordForGuessing() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner;
         try {
             scanner = createAnURLScanner();
         } catch (Exception e) {
@@ -133,12 +140,11 @@ public class Hangman {
 
     public static String getWordFromLocation(Scanner scanner, int randomNumbersLocation) {
         String randomWord = "";
-        String throwAwayInput = "";
         for (int i = 0; i <= randomNumbersLocation; i++) {
             if (i == randomNumbersLocation) {
                 randomWord = scanner.nextLine();
             } else {
-                throwAwayInput = scanner.nextLine();
+                scanner.nextLine();
             }
         }
         return randomWord;
