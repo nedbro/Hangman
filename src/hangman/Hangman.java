@@ -1,19 +1,19 @@
-import java.net.URL;
+package hangman;
+
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.List;
 import java.util.Scanner;
 
 public class Hangman {
-    static String englishWordsURLString = "https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english.txt";
-
 
     private String secretWord = "";
     private String[] secretWordInArrayForm;
     private String[] wordCompletionArray;
-    private ArrayList<String> guessedLetters = new ArrayList<>();
+    private List<String> guessedLetters = new ArrayList<>();
 
     public Hangman() {
-        this.setSecretWord(getWordForGuessing());
+        WordGenerator wordGenerator = new WordGenerator();
+        this.setSecretWord(wordGenerator.getWordForGuessing());
         refreshWordCompletionArray();
     }
 
@@ -43,12 +43,12 @@ public class Hangman {
         return result;
     }
 
-    public ArrayList<String> getGuessedLetters() {
+    public List<String> getGuessedLetters() {
         return guessedLetters;
     }
 
     public String returnTheIncorrectlyGuessedLettersInAString() {
-        ArrayList<String> allGuessedLetters = getGuessedLetters();
+        List<String> allGuessedLetters = getGuessedLetters();
         String result = "";
         for (String letter : allGuessedLetters) {
             if (!secretWord.contains(letter))
@@ -77,17 +77,15 @@ public class Hangman {
 
     public boolean areThereAnyLettersToGuess() {
         for (int i = 0; i < secretWordInArrayForm.length; i++) {
-            if (wordCompletionArray[i] != secretWordInArrayForm[i]) {
+            if (!wordCompletionArray[i].equals(secretWordInArrayForm[i])) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean gettingAWordWasSuccessful() {
-        if (secretWord.equals("0")) {
-            return false;
-        } else return true;
+    boolean gettingAWordWasSuccessful() {
+        return !secretWord.equals("0");
     }
 
 
@@ -121,37 +119,4 @@ public class Hangman {
 
     }
 
-    public static String getWordForGuessing() {
-        Scanner scanner;
-        try {
-            scanner = createAnURLScanner();
-        } catch (Exception e) {
-            return "0";
-        }
-
-        int randomLocation = getARandomNumber(9999);
-        return getWordFromLocation(scanner, randomLocation).toLowerCase();
-    }
-
-    public static Scanner createAnURLScanner() throws Exception {
-        URL englishWordsURL = new URL(englishWordsURLString);
-        return new Scanner(englishWordsURL.openStream());
-    }
-
-    public static String getWordFromLocation(Scanner scanner, int randomNumbersLocation) {
-        String randomWord = "";
-        for (int i = 0; i <= randomNumbersLocation; i++) {
-            if (i == randomNumbersLocation) {
-                randomWord = scanner.nextLine();
-            } else {
-                scanner.nextLine();
-            }
-        }
-        return randomWord;
-    }
-
-    public static int getARandomNumber(int maxNumber) {
-        Random rand = new Random();
-        return rand.nextInt(maxNumber);
-    }
 }

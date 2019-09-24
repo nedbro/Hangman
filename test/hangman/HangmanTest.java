@@ -1,66 +1,20 @@
+package hangman;
+
+import hangman.Hangman;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
-import java.util.Scanner;
 
 public class HangmanTest {
     private Hangman hangman;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         hangman = new Hangman();
         hangman.setSecretWord("abcd");
     }
-
-    @Test
-    public void testGetAWordForGuessing() {
-        String returnedString = Hangman.getWordForGuessing();
-        boolean returnedStringIsAWord = returnedString.matches("[A-Za-z]+");
-
-        if (!returnedStringIsAWord) {
-            Assertions.fail("The game couldn't get a word for the game.");
-        }
-
-    }
-
-    @Test
-    public void testGetADifferentWordEachTime() {
-        hangman.setSecretWord(Hangman.getWordForGuessing());
-        String returnedWord = Hangman.getWordForGuessing();
-        if (hangman.getSecretWord().equals(returnedWord)) {
-            String newReturnedWord = Hangman.getWordForGuessing();
-            if (returnedWord.equals(newReturnedWord)) {
-                Assertions.fail("The game gets the same word every time");
-            }
-        }
-    }
-
-    @Test
-    public void testFirstAndLastWordFromTheFile() {
-        String expectedFirstWord = "the";
-        String expectedLastWord = "poison";
-        Scanner scanner = new Scanner(System.in);
-
-        try {
-            scanner = Hangman.createAnURLScanner();
-        } catch (Exception e) {
-            Assertions.fail(e.getMessage());
-        }
-
-        String readFirstWord = Hangman.getWordFromLocation(scanner, 0);
-        String readLastWord = Hangman.getWordFromLocation(scanner, 9998);
-
-        if (!expectedFirstWord.equals(readFirstWord)) {
-            Assertions.fail("The expected and read first words don't match");
-        }
-
-        if (!expectedLastWord.equals(readLastWord)) {
-            Assertions.fail("The expected and read first words don't match");
-        }
-    }
-
 
     @Test
     public void testEveryNewHangmanHasAWord() {
@@ -220,7 +174,7 @@ public class HangmanTest {
     }
 
     @Test
-    public void testNonCharacterInput(){
+    public void testNonCharacterInput() {
         Assertions.assertFalse(hangman.checkWordForALetter("."));
     }
 
