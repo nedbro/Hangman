@@ -5,6 +5,7 @@ import java.util.*;
 public class Hangman {
 
     private SecretWord secretWord;
+
     private int guessesLeft = 6;
 
     public Hangman() {
@@ -45,6 +46,10 @@ public class Hangman {
         } else {
             return GameState.IN_PROGESS;
         }
+    }
+
+    public int getGuessesLeft() {
+        return guessesLeft;
     }
 
 }
