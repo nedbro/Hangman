@@ -1,6 +1,5 @@
 package hangman;
 
-import hangman.Hangman;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,9 +37,7 @@ public class HangmanTest {
         String[] alphabet = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
                 "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
         for (int i = 0; i < alphabet.length; i++) {
-            ByteArrayInputStream in = new ByteArrayInputStream(alphabet[i].getBytes());
-            System.setIn(in);
-            hangman.doARoundOfGuessing();
+            hangman.checkLetter(alphabet[i]);
         }
         Assertions.assertFalse(hangman.areThereAnyLettersToGuess());
     }

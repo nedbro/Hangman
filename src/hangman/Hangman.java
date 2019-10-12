@@ -23,34 +23,16 @@ public class Hangman {
         return secretWord.areThereAnyLettersToGuess();
     }
 
-    public void doARoundOfGuessing() {
-        printTheCurrentStateOfTheGame();
-        Scanner scanner = new Scanner(System.in);
-        String inputLetter = scanner.nextLine();
+    public void checkLetter(String inputLetter) {
         secretWord.checkWordForALetter(inputLetter);
     }
 
-    public void printTheCurrentStateOfTheGame() {
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println(secretWord.getTheCurrentStateOfTheWord());
-        System.out.println();
-        System.out.println(secretWord.returnTheIncorrectlyGuessedLettersInAString());
-        System.out.println();
+    public String getTheCurrentStateOfTheWord() {
+        return secretWord.getTheCurrentStateOfTheWord();
     }
 
-    public static void main(String[] args) {
-        Hangman hangman = new Hangman();
-        while (hangman.areThereAnyLettersToGuess()) {
-            hangman.doARoundOfGuessing();
-        }
-
-        hangman.printTheCurrentStateOfTheGame();
-
+    public String getTheIncorrectlyGuessedLetters() {
+        return secretWord.getTheIncorrectlyGuessedLetters();
     }
 
 }

@@ -132,7 +132,7 @@ public class SecretWordTest {
         secretWord.checkWordForALetter("t");
         secretWord.checkWordForALetter("v");
         secretWord.checkWordForALetter("y");
-        Assertions.assertEquals("g k r s t v y ", secretWord.returnTheIncorrectlyGuessedLettersInAString());
+        Assertions.assertEquals("g k r s t v y ", secretWord.getTheIncorrectlyGuessedLetters());
     }
 
 }
