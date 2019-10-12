@@ -42,6 +42,44 @@ public class HangmanTest {
         Assertions.assertFalse(hangman.areThereAnyLettersToGuess());
     }
 
+    @Test
+    public void testRunningOutOfGuesses() {
+        String[] wrongLetters = {"e", "f", "g", "h", "i", "j"};
+        for (int i = 0; i < 6; i++) {
+            hangman.checkLetter(wrongLetters[i]);
+        }
+
+        Assertions.assertEquals(GameState.LOST, hangman.getTheStateOfTheGame());
+    }
+
+    @Test
+    public void testGuessingTheWordCorrectly() {
+        hangman.checkLetter("a");
+        hangman.checkLetter("b");
+        hangman.checkLetter("c");
+        hangman.checkLetter("d");
+
+        Assertions.assertEquals(GameState.WON, hangman.getTheStateOfTheGame());
+    }
+
+    @Test
+    public void testGuessingTheWordCorrectlyWithTheLastGuess() {
+        hangman.checkLetter("a");
+        hangman.checkLetter("b");
+        hangman.checkLetter("c");
+        hangman.checkLetter("e");
+        hangman.checkLetter("f");
+        hangman.checkLetter("d");
+
+        Assertions.assertEquals(GameState.WON, hangman.getTheStateOfTheGame());
+    }
+
+    @Test
+    public void testGuessingStillInProgress() {
+        hangman.checkLetter("a");
+        Assertions.assertEquals(GameState.IN_PROGESS, hangman.getTheStateOfTheGame());
+    }
+
 
 }
 

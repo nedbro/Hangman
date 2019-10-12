@@ -5,9 +5,9 @@ public class Main {
         Hangman hangman = new Hangman();
         UserInterface userInterface = new UserInterface(hangman);
 
-        while (hangman.areThereAnyLettersToGuess()) {
+        while (hangman.getTheStateOfTheGame().equals(GameState.IN_PROGESS)) {
             userInterface.turn();
         }
-        userInterface.printTheCurrentStateOfTheGame();
+        userInterface.endingMessage();
     }
 }

@@ -28,7 +28,7 @@ public class SecretWord {
         return letter.length() == 1 && letter.matches("[A-Za-z]");
     }
 
-    public String returnTheIncorrectlyGuessedLettersInAString() {
+    public String getTheIncorrectlyGuessedLetters() {
         String result = "";
         for (String letter : guessedLetters) {
             if (!word.contains(letter))

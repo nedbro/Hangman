@@ -5,6 +5,7 @@ import java.util.*;
 public class Hangman {
 
     private SecretWord secretWord;
+    private int guessesLeft = 6;
 
     public Hangman() {
         WordGenerator wordGenerator = new WordGenerator();
@@ -25,6 +26,7 @@ public class Hangman {
 
     public void checkLetter(String inputLetter) {
         secretWord.checkWordForALetter(inputLetter);
+        guessesLeft--;
     }
 
     public String getTheCurrentStateOfTheWord() {
@@ -33,6 +35,16 @@ public class Hangman {
 
     public String getTheIncorrectlyGuessedLetters() {
         return secretWord.getTheIncorrectlyGuessedLetters();
+    }
+
+    public GameState getTheStateOfTheGame() {
+        if (!areThereAnyLettersToGuess()) {
+            return GameState.WON;
+        } else if (guessesLeft < 1) {
+            return GameState.LOST;
+        } else {
+            return GameState.IN_PROGESS;
+        }
     }
 
 }
