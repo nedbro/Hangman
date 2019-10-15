@@ -26,8 +26,9 @@ public class Hangman {
     }
 
     public void checkLetter(String inputLetter) {
-        secretWord.checkWordForALetter(inputLetter);
-        guessesLeft--;
+        if (!secretWord.checkWordForALetter(inputLetter)) {
+            guessesLeft--;
+        }
     }
 
     public String getTheCurrentStateOfTheWord() {
